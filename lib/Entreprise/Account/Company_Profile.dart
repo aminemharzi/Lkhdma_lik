@@ -67,6 +67,28 @@ class _Company_ProfilState extends State<Company_Profil> {
                               : FileImage(company_iamge) as ImageProvider,
                           fit: BoxFit.cover),
                     ),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 10, right: 5),
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          //border: Border.all(color: Colors.white, width: 2),
+                          color: Colors.white,
+                        ),
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              _getFromGallery(0);
+                            },
+                            child: SvgPicture.asset(
+                                "assets/icons/add_a_photo.svg"),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   Row(
                     children: [
@@ -97,55 +119,50 @@ class _Company_ProfilState extends State<Company_Profil> {
                   ),
                   Center(
                     child: Column(children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 125),
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          image: DecorationImage(
-                              image: converture_image == null
-                                  ? NetworkImage(
-                                      "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg")
-                                  : FileImage(converture_image)
-                                      as ImageProvider,
-                              fit: BoxFit.cover),
-                        ),
+                      Stack(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 125),
+                            width: 130,
+                            height: 130,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(color: Colors.white, width: 2),
+                              image: DecorationImage(
+                                  image: converture_image == null
+                                      ? NetworkImage(
+                                          "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg")
+                                      : FileImage(converture_image)
+                                          as ImageProvider,
+                                  fit: BoxFit.cover),
+                            ),
+                            child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: Container(
+                                margin: EdgeInsets.only(right: 10, bottom: 5),
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  //border: Border.all(color: Colors.white, width: 2),
+                                  color: Colors.white,
+                                ),
+                                child: Center(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _getFromGallery(1);
+                                    },
+                                    child: SvgPicture.asset(
+                                        "assets/icons/add_a_photo.svg"),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      // Container(
-                      //   margin: EdgeInsets.only(top: 125),
-                      //   width: 130,
-                      //   height: 130,
-                      //   child: ClipRRect(
-                      //     child: converture_image == null
-                      //                   ? Image.network(
-                      //       "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg",
-                      //       fit: BoxFit.cover,
-                      //     )
-                      //                   : FileImage(converture_image) as ImageProvider,
-                      //     borderRadius: BorderRadius.circular(60),
-                      //   ),
-                      // ),
                       SizedBox(
                         height: 10,
-                      ),
-                      Container(
-                        //margin: EdgeInsets.only(top: 240, right: 20),
-                        child:
-                            Column(mainAxisSize: MainAxisSize.min, children: [
-                          GestureDetector(
-                            onTap: () {
-                              _getFromGallery(0);
-                            },
-                            child: SvgPicture.asset(
-                                "assets/icons/add_a_photo.svg"),
-                          ),
-                          Text(
-                            "Add couverture",
-                            style:
-                                TextStyle(fontFamily: "Urbanist", fontSize: 13),
-                          )
-                        ]),
                       ),
                     ]),
                   ),
@@ -166,24 +183,24 @@ class _Company_ProfilState extends State<Company_Profil> {
                           )
                         ]),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 205, right: 20),
-                        child:
-                            Column(mainAxisSize: MainAxisSize.min, children: [
-                          GestureDetector(
-                            onTap: () {
-                              _getFromGallery(1);
-                            },
-                            child: SvgPicture.asset(
-                                "assets/icons/add_a_photo.svg"),
-                          ),
-                          Text(
-                            "Add couverture",
-                            style:
-                                TextStyle(fontFamily: "Urbanist", fontSize: 13),
-                          )
-                        ]),
-                      ),
+                      // Container(
+                      //   margin: EdgeInsets.only(top: 205, right: 20),
+                      //   child:
+                      //       Column(mainAxisSize: MainAxisSize.min, children: [
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         _getFromGallery(1);
+                      //       },
+                      //       child: SvgPicture.asset(
+                      //           "assets/icons/add_a_photo.svg"),
+                      //     ),
+                      //     Text(
+                      //       "Add couverture",
+                      //       style:
+                      //           TextStyle(fontFamily: "Urbanist", fontSize: 13),
+                      //     )
+                      //   ]),
+                      // ),
                     ],
                   ),
                 ],
