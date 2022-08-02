@@ -59,6 +59,7 @@ class _Company_ProfilState extends State<Company_Profil> {
                   Container(
                     height: 200,
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
                           image: company_iamge == null
                               ? NetworkImage(
