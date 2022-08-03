@@ -81,7 +81,7 @@ class _Company_ProfilState extends State<Company_Profil> {
                         child: Center(
                           child: GestureDetector(
                             onTap: () {
-                              _getFromGallery(0);
+                              _getFromGallery(1);
                             },
                             child: SvgPicture.asset(
                                 "assets/icons/add_a_photo.svg"),
@@ -126,7 +126,7 @@ class _Company_ProfilState extends State<Company_Profil> {
                             width: 130,
                             height: 130,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
+                              borderRadius: BorderRadius.circular(60),
                               border: Border.all(color: Colors.white, width: 2),
                               image: DecorationImage(
                                   image: converture_image == null
@@ -150,7 +150,7 @@ class _Company_ProfilState extends State<Company_Profil> {
                                 child: Center(
                                   child: GestureDetector(
                                     onTap: () {
-                                      _getFromGallery(1);
+                                      _getFromGallery(0);
                                     },
                                     child: SvgPicture.asset(
                                         "assets/icons/add_a_photo.svg"),
@@ -183,24 +183,6 @@ class _Company_ProfilState extends State<Company_Profil> {
                           )
                         ]),
                       ),
-                      // Container(
-                      //   margin: EdgeInsets.only(top: 205, right: 20),
-                      //   child:
-                      //       Column(mainAxisSize: MainAxisSize.min, children: [
-                      //     GestureDetector(
-                      //       onTap: () {
-                      //         _getFromGallery(1);
-                      //       },
-                      //       child: SvgPicture.asset(
-                      //           "assets/icons/add_a_photo.svg"),
-                      //     ),
-                      //     Text(
-                      //       "Add couverture",
-                      //       style:
-                      //           TextStyle(fontFamily: "Urbanist", fontSize: 13),
-                      //     )
-                      //   ]),
-                      // ),
                     ],
                   ),
                 ],
@@ -365,7 +347,6 @@ class _Company_ProfilState extends State<Company_Profil> {
                       child: Center(
                           child: GestureDetector(
                         onTap: () {
-                          print("Amine ");
                           setState(() {
                             isEditing_email = true;
                           });
