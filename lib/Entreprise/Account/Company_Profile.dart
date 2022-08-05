@@ -49,6 +49,7 @@ class _Company_ProfilState extends State<Company_Profil> {
 
   @override
   Widget build(BuildContext context) {
+    double width= (MediaQuery.of(context).size.width)-40;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -534,7 +535,7 @@ class _Company_ProfilState extends State<Company_Profil> {
                     ),
                     // fillColor: Colors.grey,
 
-                    hintText: isEditing_email == true ? "" : "My location",
+                    hintText: isEditing_location == true ? "" : "My location",
                     suffixIcon: Container(
                       width: 10,
                       child: Center(
@@ -581,9 +582,12 @@ class _Company_ProfilState extends State<Company_Profil> {
                       borderRadius: BorderRadius.circular(12), // <-- Radius
                     ),
                     primary: Color(0xff1E232C),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 140,
-                      vertical: 15,
+                    padding:  EdgeInsets.only(
+                      left: (width/2)-25,
+                      right: (width/2)-25,
+                      top: 16,
+                      bottom: 
+                      16,
                     ),
                     textStyle: TextStyle(
                       color: Colors.white,
