@@ -99,7 +99,7 @@ class _HomeEntrepriseState extends State<HomeEntreprise> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("The google name"+FirebaseAuth.instance.currentUser!.displayName!);
+    //print("The google name"+FirebaseAuth.instance.currentUser!.displayName!);
   }
   List jobs = ["Designer", "Programmer", "Photographer", "Data Analyst"];
   @override

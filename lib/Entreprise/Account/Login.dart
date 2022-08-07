@@ -75,13 +75,16 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 20,
             ),
-            Center(
+            Padding(padding: EdgeInsets.only(right: 20),
+            child: 
+             Center(
                 child: Text("Welcome back! Glad to see you, Again!",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.rubik(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xff1E232C)))),
+                        color: Color(0xff1E232C)))),),
+           
             SizedBox(
               height: 32,
             ),
@@ -234,7 +237,7 @@ class _LoginState extends State<Login> {
                                           String reponse = await account.login(email.text, password.text);
                                            
                                           print(reponse.toString());
-                                          if(reponse.toString()=="NOT_EMAIL"){
+                                          if(reponse.toString()=="NOT EMAIL"){
                                             final snackBar = SnackBar(
                                                   content: Text("Email does not exist", style: TextStyle(color: Colors.white),),
                                                   backgroundColor: Colors.red,

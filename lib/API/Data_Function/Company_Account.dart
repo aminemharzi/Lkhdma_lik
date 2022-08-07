@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:http/http.dart'as http;
 import 'package:lkhdma_lik/API/Constant.dart';
 class Company_Account_API{
@@ -19,6 +19,7 @@ class Company_Account_API{
               var data =json.decode(reponse.body);
               return data.toString();
       }catch(e){
+        print(e);
        
         return "EROR";
       }
@@ -27,7 +28,7 @@ class Company_Account_API{
   }
 
   //Store the user data in Mysql
-  Future google_to_mySql(String email)async {
+  Future google_to_mySql(String email) async {
     try{
               var reponse = await http.post(Uri.parse(ACCOUNT_ENDPOINT), body:{
               "action" : "INSERT" ,
@@ -39,14 +40,18 @@ class Company_Account_API{
          
                
           var data =json.decode(reponse.body);
-          return data.toString();
+          String? mm = await data; 
+          print(mm);
+         // return data.toString();
+      } on SocketException catch(e){
+
+       print("No Connextion");
+       
+       // return "EROR";
       }catch(e){
-       print("$e");
-        return "EROR";
+        print(e);
       }
       
-
-    
   }
 
 
