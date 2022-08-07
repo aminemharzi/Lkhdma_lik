@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -93,6 +94,13 @@ class _HomeEntrepriseState extends State<HomeEntreprise> {
     }
   }
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("The google name"+FirebaseAuth.instance.currentUser!.displayName!);
+  }
   List jobs = ["Designer", "Programmer", "Photographer", "Data Analyst"];
   @override
   Widget build(BuildContext context) {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "321772588927",
+    "project_id": "yourjob-c88af",
+    "storage_bucket": "yourjob-c88af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321772588927:android:2f2cecd4e859d8f730d44a",
+        "android_client_info": {
+          "package_name": "com.example.lkhdma_lik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321772588927-rgihln9cdn7de9jmn93h03093pmelf2k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANjBVhbtD2X1U2s8zZoazkUPGfo-ZQDs8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321772588927-rgihln9cdn7de9jmn93h03093pmelf2k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

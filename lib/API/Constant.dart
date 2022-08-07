@@ -1,6 +1,6 @@
 
 
-const DOMAIN = "http://192.168.1.8/projects/";
+const DOMAIN = "http://192.168.1.4/projects/";
 const ACCOUNT_ENDPOINT =DOMAIN+ "connection.php";
 const COMPANY_ENDPOINT = DOMAIN + "company";
 const REPLY_ENDPOINT = DOMAIN + "reply";

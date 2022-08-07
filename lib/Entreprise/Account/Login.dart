@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lkhdma_lik/Auth/Auth_Service.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Forgot_Passw.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Register.dart';
 import 'package:lkhdma_lik/Entreprise/Home/Home.dart';
@@ -19,10 +20,19 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   Company_Account_API account = new Company_Account_API();
 
+  Auth_Service auth_service = new Auth_Service();
+
 
   GlobalKey<FormState> _login_key= new GlobalKey<FormState>();
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+   
+    super.initState();
+  }
 
 
   @override
@@ -81,6 +91,7 @@ class _LoginState extends State<Login> {
               children: [
                 Padding(padding: EdgeInsets.only(right: 20),
                 child: TextFormField(
+                  controller: email,
               style: TextStyle(
                 fontSize: 16,
                 color: Color(0xff56545D),
@@ -122,7 +133,7 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-                 validator: (value) => EmailValidator.validate(value!) && value.isEmpty? null : "Please enter a valid email",
+                 validator: (value) => EmailValidator.validate(value!) && !value.isEmpty? null : "Please enter a valid email",
             ),),
                   
             SizedBox(
@@ -130,6 +141,7 @@ class _LoginState extends State<Login> {
             ),
             Padding(padding: EdgeInsets.only(right: 20),
             child: TextFormField(
+              controller: password,
               obscureText: true,
               style: TextStyle(
                 fontSize: 16,
@@ -215,32 +227,41 @@ class _LoginState extends State<Login> {
             Container(
               margin: EdgeInsets.only(right: 20),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: ()  async{
                
-                       var formdata =_login_key.currentState;
+                     var formdata =_login_key.currentState;
                                         if(formdata!.validate()){
-                                          String reponse =account.login(email.text, password.text) as String;
-                                          if(reponse=="NOT_EMAIL"){
+                                          String reponse = await account.login(email.text, password.text);
+                                           
+                                          print(reponse.toString());
+                                          if(reponse.toString()=="NOT_EMAIL"){
                                             final snackBar = SnackBar(
-            content: Text("Email does not exist", style: TextStyle(color: Colors.white),),
-            backgroundColor: Colors.red,
-            );
+                                                  content: Text("Email does not exist", style: TextStyle(color: Colors.white),),
+                                                  backgroundColor: Colors.red,
+                                                  );
 
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                          }else if(reponse=="PASSWORD INCORECT"){
+                                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                          }else if(reponse.toString()=="PASSWORD INCORECT"){
                                                final snackBar = SnackBar(
-            content: Text("Incorrect password", style: TextStyle(color: Colors.white),),
-            backgroundColor: Colors.red,
-            );
-           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                          }else{
+                                      content: Text("Incorrect password", style: TextStyle(color: Colors.white),),
+                                      backgroundColor: Colors.red,
+                                      );
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                          }else if(reponse.toString()=="EROR"){
+                                               final snackBar = SnackBar(
+                                    content: Text("Incorrect password", style: TextStyle(color: Colors.white),),
+                                    backgroundColor: Colors.red,
+                                    );
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                          }
+                                          else{
                                              final snackBar = SnackBar(
-            content: Text("Login Success", style: TextStyle(color: Colors.white),
-            
-            ),
-            backgroundColor: Colors.green,
-            );
-             Get.to(() => HomeEntreprise());
+                                    content: Text("Login Success", style: TextStyle(color: Colors.white),
+                                    
+                                    ),
+                                    backgroundColor: Colors.green,
+                                    );
+                                    Get.to(() => HomeEntreprise());
                                           }
                                           
               
@@ -342,7 +363,10 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+
+                        auth_service.signInWithGoogle();
+                      },
                       child: Container(
                         width: 50,
                         height: 50,
