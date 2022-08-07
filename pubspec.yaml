@@ -43,6 +43,11 @@ dependencies:
   syncfusion_flutter_calendar: ^20.2.40
   table_calendar: ^3.0.6
   intl: ^0.17.0
+  email_validator: ^2.1.17
+  firebase_auth: ^3.4.2
+  google_sign_in: ^5.4.0
+  font_awesome_flutter: ^10.1.0
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:

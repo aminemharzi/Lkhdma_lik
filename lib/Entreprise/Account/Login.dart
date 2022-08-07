@@ -1,10 +1,14 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lkhdma_lik/Auth/Auth_Service.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Forgot_Passw.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Register.dart';
 import 'package:lkhdma_lik/Entreprise/Home/Home.dart';
+
+import '../../API/Data_Function/Company_Account.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -14,6 +18,23 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  Company_Account_API account = new Company_Account_API();
+
+  Auth_Service auth_service = new Auth_Service();
+
+
+  GlobalKey<FormState> _login_key= new GlobalKey<FormState>();
+  TextEditingController email = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+   
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -21,7 +42,7 @@ class _LoginState extends State<Login> {
         body: SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
-        padding: EdgeInsets.only(left: 22),
+        padding: EdgeInsets.only(left: 22,),
         child: Column(
           children: [
             SizedBox(
@@ -54,17 +75,26 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 20,
             ),
-            Center(
+            Padding(padding: EdgeInsets.only(right: 20),
+            child: 
+             Center(
                 child: Text("Welcome back! Glad to see you, Again!",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.rubik(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xff1E232C)))),
+                        color: Color(0xff1E232C)))),),
+           
             SizedBox(
               height: 32,
             ),
-            TextFormField(
+            Form(
+              key: _login_key,
+              child:Column(
+              children: [
+                Padding(padding: EdgeInsets.only(right: 20),
+                child: TextFormField(
+                  controller: email,
               style: TextStyle(
                 fontSize: 16,
                 color: Color(0xff56545D),
@@ -106,18 +136,15 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Ce champs est obligatoire";
-                } else {
-                  return null;
-                }
-              },
-            ),
+                 validator: (value) => EmailValidator.validate(value!) && !value.isEmpty? null : "Please enter a valid email",
+            ),),
+                  
             SizedBox(
               height: 15,
             ),
-            TextFormField(
+            Padding(padding: EdgeInsets.only(right: 20),
+            child: TextFormField(
+              controller: password,
               obscureText: true,
               style: TextStyle(
                 fontSize: 16,
@@ -163,12 +190,17 @@ class _LoginState extends State<Login> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Ce champs est obligatoire";
+                  return "password can not be empty";
                 } else {
                   return null;
                 }
               },
-            ),
+            ),),
+            
+
+              ],
+            )),
+          
             SizedBox(
               height: 15,
             ),
@@ -198,8 +230,45 @@ class _LoginState extends State<Login> {
             Container(
               margin: EdgeInsets.only(right: 20),
               child: ElevatedButton(
-                onPressed: () {
-                  Get.to(() => HomeEntreprise());
+                onPressed: ()  async{
+               
+                     var formdata =_login_key.currentState;
+                                        if(formdata!.validate()){
+                                          String reponse = await account.login(email.text, password.text);
+                                           
+                                          print(reponse.toString());
+                                          if(reponse.toString()=="NOT EMAIL"){
+                                            final snackBar = SnackBar(
+                                                  content: Text("Email does not exist", style: TextStyle(color: Colors.white),),
+                                                  backgroundColor: Colors.red,
+                                                  );
+
+                                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                          }else if(reponse.toString()=="PASSWORD INCORECT"){
+                                               final snackBar = SnackBar(
+                                      content: Text("Incorrect password", style: TextStyle(color: Colors.white),),
+                                      backgroundColor: Colors.red,
+                                      );
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                          }else if(reponse.toString()=="EROR"){
+                                               final snackBar = SnackBar(
+                                    content: Text("Incorrect password", style: TextStyle(color: Colors.white),),
+                                    backgroundColor: Colors.red,
+                                    );
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                          }
+                                          else{
+                                             final snackBar = SnackBar(
+                                    content: Text("Login Success", style: TextStyle(color: Colors.white),
+                                    
+                                    ),
+                                    backgroundColor: Colors.green,
+                                    );
+                                    Get.to(() => HomeEntreprise());
+                                          }
+                                          
+              
+                                        }
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -297,7 +366,10 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+
+                        auth_service.signInWithGoogle();
+                      },
                       child: Container(
                         width: 50,
                         height: 50,

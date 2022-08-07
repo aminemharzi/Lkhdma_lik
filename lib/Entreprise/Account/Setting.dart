@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lkhdma_lik/Auth/Auth_Service.dart';
+import 'package:lkhdma_lik/Entreprise/Account/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Setting extends StatefulWidget {
@@ -269,7 +271,12 @@ class _SettingState extends State<Setting> {
               SizedBox(
                 height: 10,
               ),
-              Container(
+              GestureDetector(
+                onTap: (){
+                  Auth_Service().signOut();
+                 
+                },
+                child:  Container(
                 margin: EdgeInsets.only(left: 20),
                 child: Text(
                   "Logout",
@@ -279,6 +286,8 @@ class _SettingState extends State<Setting> {
                       color: Color(0xff007AFF)),
                 ),
               ),
+              ),
+             
               InkWell(
                 onTap: () {},
                 child: Container(

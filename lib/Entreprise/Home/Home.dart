@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -93,6 +94,13 @@ class _HomeEntrepriseState extends State<HomeEntreprise> {
     }
   }
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //print("The google name"+FirebaseAuth.instance.currentUser!.displayName!);
+  }
   List jobs = ["Designer", "Programmer", "Photographer", "Data Analyst"];
   @override
   Widget build(BuildContext context) {
@@ -229,34 +237,773 @@ class _HomeEntrepriseState extends State<HomeEntreprise> {
                 ),
                 // displayData(selectedIndex),
                 Container(
-                    child: Stack(children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 40),
-                    height: 190,
-                    width: 140,
-                    child: Card(
-                        elevation: 4,
-                        child: Container(
-                          padding: EdgeInsets.only(top: 45),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [Text("Oussama Shimi")],
+                  margin: EdgeInsets.only(right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                          child: Stack(children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        )),
+                          margin: EdgeInsets.only(top: 40),
+                          height: 190,
+                          width: 140,
+                          child: Card(
+                              elevation: 4,
+                              child: Container(
+                                padding: EdgeInsets.only(top: 45),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Oussama Shimi",
+                                      style: TextStyle(
+                                          fontFamily: "Urbanist",
+                                          color: Color(0xff007AFF),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Text(
+                                        "SoftWare engineer",
+                                        style: TextStyle(
+                                            fontFamily: "Urbanist",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => Details_Candidat(
+                                                idCandidat: 1));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      12), // <-- Radius
+                                            ),
+                                            primary: Color(0xff1E232C),
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "View Profil",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 30),
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 6),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      ])),
+                      Container(
+                          child: Stack(children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: EdgeInsets.only(top: 40),
+                          height: 190,
+                          width: 140,
+                          child: Card(
+                              elevation: 4,
+                              child: Container(
+                                padding: EdgeInsets.only(top: 45),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Oussama Shimi",
+                                      style: TextStyle(
+                                          fontFamily: "Urbanist",
+                                          color: Color(0xff007AFF),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Text(
+                                        "SoftWare engineer",
+                                        style: TextStyle(
+                                            fontFamily: "Urbanist",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => Details_Candidat(
+                                                idCandidat: 1));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      12), // <-- Radius
+                                            ),
+                                            primary: Color(0xff1E232C),
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "View Profil",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 30),
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 6),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      ]))
+                    ],
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 30),
-                    width: 85,
-                    height: 85,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg"),
-                          fit: BoxFit.cover),
-                    ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                          child: Stack(children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: EdgeInsets.only(top: 40),
+                          height: 190,
+                          width: 140,
+                          child: Card(
+                              elevation: 4,
+                              child: Container(
+                                padding: EdgeInsets.only(top: 45),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Oussama Shimi",
+                                      style: TextStyle(
+                                          fontFamily: "Urbanist",
+                                          color: Color(0xff007AFF),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Text(
+                                        "SoftWare engineer",
+                                        style: TextStyle(
+                                            fontFamily: "Urbanist",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => Details_Candidat(
+                                                idCandidat: 1));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      12), // <-- Radius
+                                            ),
+                                            primary: Color(0xff1E232C),
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "View Profil",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 30),
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 6),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      ])),
+                      Container(
+                          child: Stack(children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: EdgeInsets.only(top: 40),
+                          height: 190,
+                          width: 140,
+                          child: Card(
+                              elevation: 4,
+                              child: Container(
+                                padding: EdgeInsets.only(top: 45),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Oussama Shimi",
+                                      style: TextStyle(
+                                          fontFamily: "Urbanist",
+                                          color: Color(0xff007AFF),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Text(
+                                        "SoftWare engineer",
+                                        style: TextStyle(
+                                            fontFamily: "Urbanist",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => Details_Candidat(
+                                                idCandidat: 1));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      12), // <-- Radius
+                                            ),
+                                            primary: Color(0xff1E232C),
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "View Profil",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 30),
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 6),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      ]))
+                    ],
                   ),
-                ]))
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                          child: Stack(children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: EdgeInsets.only(top: 40),
+                          height: 190,
+                          width: 140,
+                          child: Card(
+                              elevation: 4,
+                              child: Container(
+                                padding: EdgeInsets.only(top: 45),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Oussama Shimi",
+                                      style: TextStyle(
+                                          fontFamily: "Urbanist",
+                                          color: Color(0xff007AFF),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Text(
+                                        "SoftWare engineer",
+                                        style: TextStyle(
+                                            fontFamily: "Urbanist",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => Details_Candidat(
+                                                idCandidat: 1));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      12), // <-- Radius
+                                            ),
+                                            primary: Color(0xff1E232C),
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "View Profil",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 30),
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 6),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      ])),
+                      Container(
+                          child: Stack(children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: EdgeInsets.only(top: 40),
+                          height: 190,
+                          width: 140,
+                          child: Card(
+                              elevation: 4,
+                              child: Container(
+                                padding: EdgeInsets.only(top: 45),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Oussama Shimi",
+                                      style: TextStyle(
+                                          fontFamily: "Urbanist",
+                                          color: Color(0xff007AFF),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Text(
+                                        "SoftWare engineer",
+                                        style: TextStyle(
+                                            fontFamily: "Urbanist",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => Details_Candidat(
+                                                idCandidat: 1));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      12), // <-- Radius
+                                            ),
+                                            primary: Color(0xff1E232C),
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "View Profil",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 30),
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 6),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      ]))
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                          child: Stack(children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: EdgeInsets.only(top: 40),
+                          height: 190,
+                          width: 140,
+                          child: Card(
+                              elevation: 4,
+                              child: Container(
+                                padding: EdgeInsets.only(top: 45),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Oussama Shimi",
+                                      style: TextStyle(
+                                          fontFamily: "Urbanist",
+                                          color: Color(0xff007AFF),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Text(
+                                        "SoftWare engineer",
+                                        style: TextStyle(
+                                            fontFamily: "Urbanist",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => Details_Candidat(
+                                                idCandidat: 1));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      12), // <-- Radius
+                                            ),
+                                            primary: Color(0xff1E232C),
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "View Profil",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 30),
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 6),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      ])),
+                      Container(
+                          child: Stack(children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: EdgeInsets.only(top: 40),
+                          height: 190,
+                          width: 140,
+                          child: Card(
+                              elevation: 4,
+                              child: Container(
+                                padding: EdgeInsets.only(top: 45),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Oussama Shimi",
+                                      style: TextStyle(
+                                          fontFamily: "Urbanist",
+                                          color: Color(0xff007AFF),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Text(
+                                        "SoftWare engineer",
+                                        style: TextStyle(
+                                            fontFamily: "Urbanist",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => Details_Candidat(
+                                                idCandidat: 1));
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      12), // <-- Radius
+                                            ),
+                                            primary: Color(0xff1E232C),
+                                            textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "View Profil",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 30),
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 6),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://img.etimg.com/thumb/msid-79622736,width-640,resizemode-4,imgsize-150765/microsoft.jpg"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      ]))
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

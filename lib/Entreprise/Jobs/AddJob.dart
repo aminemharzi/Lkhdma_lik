@@ -15,9 +15,10 @@ class _AddJobState extends State<AddJob> {
   var _formKey = new GlobalKey<FormState>();
 
   var default_level = "Study level";
-  var study_levels = ["Bac", "Bac+2", "Bac+3", "Bac+5"];
+  //var study_levels = ["Bac", "Bac+2", "Bac+3", "Bac+5"];
   @override
   Widget build(BuildContext context) {
+    double width= (MediaQuery.of(context).size.width)-40;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -431,34 +432,37 @@ class _AddJobState extends State<AddJob> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(right: 20, left: 20),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12), // <-- Radius
-                        ),
-                        primary: Color(0xff1E232C),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 140,
-                          vertical: 15,
-                        ),
-                        textStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      child: Text(
-                        "Save",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
+                Container(
+                margin: EdgeInsets.only(right: 20, left: 20),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12), // <-- Radius
+                    ),
+                    primary: Color(0xff1E232C),
+                    padding:  EdgeInsets.only(
+                      left: (width/2)-25,
+                      right: (width/2)-25,
+                      top: 16,
+                      bottom: 
+                      16,
+                    ),
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
+                  child: Text(
+                    "Save",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
                   SizedBox(
                     height: 10,
                   ),

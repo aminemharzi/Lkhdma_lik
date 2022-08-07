@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Company_Profile.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Setting.dart';
+import 'package:lkhdma_lik/Entreprise/Hiring/Saved_Candidate.dart';
 import 'package:lkhdma_lik/Entreprise/Jobs/AddJob.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -97,7 +98,7 @@ class _MyDrawerState extends State<MyDrawer> {
               //  leading: SvgPicture.asset("assets/icons/Profile.svg"),
               title: const Text('Saved'),
               onTap: () {
-                Navigator.pop(context);
+                Get.to(() => Saved_Candidate());
               },
             ),
           ),
