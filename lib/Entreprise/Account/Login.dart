@@ -1,5 +1,7 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +9,7 @@ import 'package:lkhdma_lik/Auth/Auth_Service.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Forgot_Passw.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Register.dart';
 import 'package:lkhdma_lik/Entreprise/Home/Home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../API/Data_Function/Company_Account.dart';
 
@@ -33,6 +36,39 @@ class _LoginState extends State<Login> {
    
     super.initState();
   }
+
+  var loading = false ;
+
+  void loginWithFacebook() async {
+    setState(() {
+      loading = true;
+    });
+
+    try{
+      final facebookLoginResult = await FacebookAuth.instance.login();
+      final userData = await FacebookAuth.instance.getUserData();
+      print(facebookLoginResult.status.toString());
+
+      final facebookAuthCredential = FacebookAuthProvider.credential(facebookLoginResult.accessToken!.token);
+      await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      await FirebaseFirestore.instance.collection('users').add({
+        'email': userData['email'],
+        'imageUrl': userData['picture']['data']['url'],
+        'name': userData['name'],
+      });
+      print("@@@@@@ Login with faceboog is succefully added");
+
+    }catch(e){
+
+      print("Exception is $e");
+    }finally{
+
+      setState(() {
+        loading =false;
+      });
+    }
+  }
+
 
 
   @override
@@ -346,7 +382,9 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        loginWithFacebook();
+                      },
                       child: Container(
                         width: 50,
                         height: 50,
