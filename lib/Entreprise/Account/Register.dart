@@ -1,9 +1,12 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lkhdma_lik/Entreprise/Account/Company_Info.dart';
+import 'package:lkhdma_lik/API/Data_Function/Company_Account.dart';
+
 import 'package:lkhdma_lik/Entreprise/Account/Login.dart';
+import 'package:lkhdma_lik/Helper/Display_Message.dart';
 
 class Register extends StatefulWidget {
   Register({Key? key}) : super(key: key);
@@ -13,6 +16,16 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+
+
+
+  GlobalKey<FormState> _register_key = new GlobalKey<FormState>();
+  var email = TextEditingController();
+  var confirmPassword =TextEditingController();
+  var userName =  TextEditingController();
+  var password = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -63,7 +76,11 @@ class _RegisterState extends State<Register> {
             SizedBox(
               height: 32,
             ),
-            TextFormField(
+            Form(
+              key: _register_key, 
+              child: Column(children: [
+                Padding(padding: EdgeInsets.only(right: 20), child: TextFormField(
+                controller: userName,
               style: TextStyle(
                 fontSize: 16,
                 color: Color(0xff56545D),
@@ -112,11 +129,14 @@ class _RegisterState extends State<Register> {
                   return null;
                 }
               },
-            ),
+            ) ,),
+           
+               
             SizedBox(
               height: 15,
             ),
-            TextFormField(
+             Padding(padding: EdgeInsets.only(right: 20), child:TextFormField(
+              controller: email ,
               style: TextStyle(
                 fontSize: 16,
                 color: Color(0xff56545D),
@@ -159,18 +179,14 @@ class _RegisterState extends State<Register> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Ce champs est obligatoire";
-                } else {
-                  return null;
-                }
-              },
-            ),
+              validator: (value) => EmailValidator.validate(value!) && !value.isEmpty? null : "Please enter a valid email",
+            ), ),
+            
             SizedBox(
               height: 15,
             ),
-            TextFormField(
+             Padding(padding: EdgeInsets.only(right: 20), child: TextFormField(
+              controller: password,
               obscureText: true,
               style: TextStyle(
                 fontSize: 16,
@@ -220,11 +236,13 @@ class _RegisterState extends State<Register> {
                   return null;
                 }
               },
-            ),
+            ),),
+            
             SizedBox(
               height: 15,
             ),
-            TextFormField(
+             Padding(padding: EdgeInsets.only(right: 20), child:  TextFormField(
+              controller: confirmPassword,
               obscureText: true,
               style: TextStyle(
                 fontSize: 16,
@@ -270,20 +288,51 @@ class _RegisterState extends State<Register> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Ce champs est obligatoire";
-                } else {
+                  return "this field is required";
+                }else if(value != password.text){
+                  return "the password does not match";
+
+                } 
+                else {
                   return null;
                 }
               },
+            ),),
+           
+
+              ],)
             ),
+            
             SizedBox(
               height: 20,
             ),
             Container(
               margin: EdgeInsets.only(right: 20),
               child: ElevatedButton(
-                onPressed: () {
-                  Get.to(() => Company_Info());
+                onPressed: () async {
+
+                     var formdata =_register_key.currentState;
+                          if(formdata!.validate()) {
+                            String out= "Email or Password is not valid";
+
+                            Company_Account_API account = new Company_Account_API();
+                             var data = await account.register(userName.text,email.text, password.text);
+                              Display_Message display_message = Display_Message();
+                             if(data == null){
+                             
+                              display_message.errorMessage(out);
+                               ScaffoldMessenger.of(context).showSnackBar(display_message.errorMessage(out));
+                             }else{
+                              String out= "You are Logged in";
+                              display_message.errorMessage(out);
+                               ScaffoldMessenger.of(context).showSnackBar(display_message.errorMessage(out));
+                              
+
+                             }
+
+
+                          }
+                 
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
