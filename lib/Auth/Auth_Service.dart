@@ -9,7 +9,9 @@ import '../API/Data_Function/Company_Account.dart';
 
 class Auth_Service{
 
-  //HandleAauthState()
+  //HandleAuthState()
+
+  
   hanleAuthState() {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
@@ -17,7 +19,7 @@ class Auth_Service{
       if(snapshot.hasData){
         Company_Account_API company_api = new Company_Account_API();
         
-      print(company_api.google_to_mySql(FirebaseAuth.instance.currentUser!.email!));
+      print(company_api.save_google_account(FirebaseAuth.instance.currentUser!.email!));
 
         return HomeEntreprise();
       }else {
