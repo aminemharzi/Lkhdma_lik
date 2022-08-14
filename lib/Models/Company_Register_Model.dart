@@ -1,5 +1,5 @@
 class Company_Resgister_Model{
-  int id;
+  String id;
   String email;
   String? userName;
   String password;
@@ -7,14 +7,14 @@ class Company_Resgister_Model{
   Company_Resgister_Model(this.id, this.email, this.password, {this.userName});
 
   Company_Resgister_Model.fromJson(Map<String, dynamic> json):
-  id= json["id"],
+  id= json["idUser_Entre"],
   userName= json["userName"],
   email= json["email"],
   password= json["password"];
 
   Map<String, dynamic> toJson(){
      final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    data['idUser_Entre'] = this.id;
     data['email'] = this.email;
       data['userName'] = this.userName;
     data['password'] = this.password;

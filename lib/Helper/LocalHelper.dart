@@ -4,9 +4,10 @@ import 'package:lkhdma_lik/Models/Company_Model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalHelper {
+
   static saveAccountToLocal(Company_Model account) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    var rs = await pref.setString("login",jsonEncode(account) );
+    var rs = await pref.setString("login",jsonEncode(account));
   }
 
   static deleteAccountFromLocal() async {

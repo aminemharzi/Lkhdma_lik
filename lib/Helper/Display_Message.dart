@@ -17,7 +17,7 @@ class Display_Message{
                     Text(text, style: TextStyle(color: Colors.white),),
                   ],
               ),
-              backgroundColor: Colors.red,
+             // backgroundColor: Colors.red,
               );
   }
 

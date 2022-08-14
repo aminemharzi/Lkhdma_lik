@@ -4,8 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lkhdma_lik/API/Data_Function/Company_Account.dart';
+import 'package:lkhdma_lik/Entreprise/Account/Company_Info.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Login.dart';
+import 'package:lkhdma_lik/Entreprise/Home/Home.dart';
 import 'package:lkhdma_lik/Helper/Display_Message.dart';
+import 'package:lkhdma_lik/Models/Company_Model.dart';
 
 class Register extends StatefulWidget {
   Register({Key? key}) : super(key: key);
@@ -315,16 +318,22 @@ class _RegisterState extends State<Register> {
                             String out= "Email or Password is not valid";
 
                             Company_Account_API account = new Company_Account_API();
-                             var data = await account.register(userName.text,email.text, password.text);
-                              Display_Message display_message = Display_Message();
-                             if(data == null){
+                             var register = await account.register(userName.text,email.text, password.text);
+
+                            
+                             if(register == null){
+                              final snackBar = SnackBar(
+                                                  content: Text("Email is exist", style: TextStyle(color: Colors.white),),
+                                                  backgroundColor: Colors.red,
+                                                  );
                              
-                              display_message.errorMessage(out);
-                               ScaffoldMessenger.of(context).showSnackBar(display_message.errorMessage(out));
+                              
+                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                              }else{
-                              String out= "You are Logged in";
-                              display_message.errorMessage(out);
-                               ScaffoldMessenger.of(context).showSnackBar(display_message.errorMessage(out));
+                              
+                           
+                              
+                            Get.to(()=> Company_Info(int.parse(register.id)));
                               
 
                              }
