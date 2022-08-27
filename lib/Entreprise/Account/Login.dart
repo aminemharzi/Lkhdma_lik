@@ -51,11 +51,11 @@ class _LoginState extends State<Login> {
 
       final facebookAuthCredential = FacebookAuthProvider.credential(facebookLoginResult.accessToken!.token);
       await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-      await FirebaseFirestore.instance.collection('users').add({
-        'email': userData['email'],
-        'imageUrl': userData['picture']['data']['url'],
-        'name': userData['name'],
-      });
+      // await FirebaseFirestore.instance.collection('users').add({
+      //   'email': userData['email'],
+      //   'imageUrl': userData['picture']['data']['url'],
+      //   'name': userData['name'],
+      // });
       print("@@@@@@ Login with faceboog is succefully added");
 
     }catch(e){

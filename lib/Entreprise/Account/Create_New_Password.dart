@@ -2,17 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lkhdma_lik/API/Data_Function/Forgot_Password_API.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Forgot_Passw.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Suucess_Change_Password.dart';
 
 class Create_New_Password extends StatefulWidget {
-  Create_New_Password({Key? key}) : super(key: key);
+  String email;
+  Create_New_Password({Key? key,required this.email }) : super(key: key);
 
   @override
-  State<Create_New_Password> createState() => _Create_New_PasswordState();
+  State<Create_New_Password> createState() => _Create_New_PasswordState(email);
 }
 
 class _Create_New_PasswordState extends State<Create_New_Password> {
+  String email;
+  _Create_New_PasswordState(this.email);
+
+
+
+  var _formKey = GlobalKey<FormState>();
+  var password = TextEditingController();
+  var confirm_password = TextEditingController();
+  var forgot_api = Forgot_Password_API();
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -72,7 +84,13 @@ class _Create_New_PasswordState extends State<Create_New_Password> {
             SizedBox(
               height: 32,
             ),
-            TextFormField(
+            Form(
+              key: _formKey,
+              child: 
+            Column(
+              children: [
+                TextFormField(
+              controller: password,
               obscureText: true,
               style: TextStyle(
                 fontSize: 16,
@@ -127,6 +145,7 @@ class _Create_New_PasswordState extends State<Create_New_Password> {
               height: 15,
             ),
             TextFormField(
+              controller: confirm_password,
               obscureText: true,
               style: TextStyle(
                 fontSize: 16,
@@ -172,12 +191,19 @@ class _Create_New_PasswordState extends State<Create_New_Password> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Ce champs est obligatoire";
-                } else {
+                  return "Enter a valid password";
+                } else if(value != password.text){
+                  return "the password does not match";
+                }else{
                   return null;
                 }
               },
             ),
+
+
+              ],
+            )),
+            
             SizedBox(
               height: 15,
             ),
@@ -186,8 +212,24 @@ class _Create_New_PasswordState extends State<Create_New_Password> {
             ),
             Container(
               child: ElevatedButton(
-                onPressed: () {
-                  Get.to(() => Success_Changed_Password());
+                onPressed: () async{
+
+                  var formState = _formKey.currentState;
+                  if(formState!.validate()){
+                   int isUpdated = await forgot_api.update_password(password.text, email, "COMPANY");
+                   if(isUpdated==1){
+                    Get.to(() => Success_Changed_Password());
+
+                   }else{
+                    final snackBar = SnackBar(
+                          content: Text("Sorry there is a probeleme try again", style: TextStyle(color: Colors.white),),
+                          backgroundColor: Colors.red,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                   }
+                    
+                  }
+                  
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

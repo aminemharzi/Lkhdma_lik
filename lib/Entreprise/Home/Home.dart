@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lkhdma_lik/Entreprise/Hiring/Details_Candidate.dart';
@@ -45,6 +46,55 @@ class _HomeEntrepriseState extends State<HomeEntreprise> {
               style:
                   GoogleFonts.rubik(fontWeight: FontWeight.bold, fontSize: 13)),
         ));
+  }
+
+
+   Widget items(
+      int id, String image, String title, String description, String service) {
+    return GestureDetector(
+      onTap: () {
+        //routing_system_ByName(service, id);
+      },
+      child: Container(
+       
+          child: ListTile(
+              leading: Container(
+                width: 80,
+                height: 80,
+                margin: EdgeInsets.only(bottom: 20),
+                child: ClipRRect(
+                  child: Image.network(
+                    "$image",
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              title: Text(
+                "$title",
+                style: GoogleFonts.rubik(
+                    fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+                "$description",
+                style: GoogleFonts.rubik(
+                  fontSize: 12,
+                ),
+              ),
+              trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    child:  SvgPicture.asset("assets/icons/save.svg"),
+                  ),
+                  GestureDetector(
+                    child:   SvgPicture.asset("assets/icons/details.svg"),
+                  )
+
+                 
+                ],
+              ))),
+    );
   }
 
   Widget displayData(int index) {
@@ -236,6 +286,36 @@ class _HomeEntrepriseState extends State<HomeEntreprise> {
                   height: 15,
                 ),
                 // displayData(selectedIndex),
+                SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.only(top: 0),
+                  itemCount: 4,
+                  itemBuilder: (context, index) => ListItems(
+                    id:  1,
+                     image :"https://docs.microsoft.com/answers/storage/attachments/209536-360-f-364211147-1qglvxv1tcq0ohz3fawufrtonzz8nq3e.jpg",
+                      title :"Amina Madoubi",
+                     description: "goood ",
+                     service: "d",
+                     isFav: 1)),
+            ),
+
+                Container(
+                  height: 130,
+                  child: InkWell(
+                    child: Container(
+                      child: Row(
+                        children: [
+                          
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 Container(
                   margin: EdgeInsets.only(right: 20),
                   child: Row(
@@ -1008,5 +1088,114 @@ class _HomeEntrepriseState extends State<HomeEntreprise> {
             ),
           ),
         ));
+  }
+}
+
+
+
+class ListItems extends StatefulWidget {
+
+  int id;
+  String image; 
+  String title;
+  String description;
+  String service;
+  int isFav;
+ 
+   ListItems({ Key? key, required this.id, required this.image, required this.title, required this.description, required this.service, required this.isFav  }) : super(key: key);
+
+  @override
+ 
+  State<ListItems> createState() => _ListItemsState( id : id, image: image, title : title, description : description, service: service, isFav: isFav );
+}
+
+class _ListItemsState extends State<ListItems> {
+   
+   int id;
+  String image; 
+  String title;
+  String description;
+  String service;
+  int isFav;
+
+  _ListItemsState({ required this.id, required this.image, required this.title, required this.description, required this.service, required this.isFav  });
+  var isfav;
+
+  void changeFav(){
+    if(isfav == 0){
+      setState(() {
+      isfav = 1;
+      
+    });
+
+    }else{
+
+        setState(() {
+      isfav = 0;
+      
+    });
+
+    }
+    
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isfav = isFav;
+  }
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        //routing_system_ByName(service, id);
+      },
+      child: Container(
+       
+          child: ListTile(
+              leading: Container(
+                width: 80,
+                height: 80,
+                margin: EdgeInsets.only(bottom: 20),
+                child: ClipRRect(
+                  child: Image.network(
+                    "$image",
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              title: Text(
+                "$title",
+                style: GoogleFonts.rubik(
+                    fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+                "$description",
+                style: GoogleFonts.rubik(
+                  fontSize: 12,
+                ),
+              ),
+              trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      changeFav();
+                    },
+                    child:  SvgPicture.asset( isfav==0 ?"assets/icons/save.svg":  "assets/icons/delete.svg"),
+                  ),
+                  GestureDetector(
+                     onTap: (){
+                      changeFav();
+                    },
+                    child:   SvgPicture.asset("assets/icons/details.svg"),
+                  )
+
+                 
+                ],
+              ))),
+    );
   }
 }

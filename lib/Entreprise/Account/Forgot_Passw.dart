@@ -1,7 +1,10 @@
+import 'package:email_auth/email_auth.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lkhdma_lik/API/Data_Function/Forgot_Password_API.dart';
 import 'package:lkhdma_lik/Entreprise/Account/OTP.dart';
 
 class Forgot_Password_Home extends StatefulWidget {
@@ -12,6 +15,17 @@ class Forgot_Password_Home extends StatefulWidget {
 }
 
 class _Forgot_Password_HomeState extends State<Forgot_Password_Home> {
+
+
+  Forgot_Password_API forgot_api= Forgot_Password_API();
+
+
+  var _formKey = GlobalKey<FormState>();
+
+  var email = TextEditingController();
+
+  
+  
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -72,7 +86,16 @@ class _Forgot_Password_HomeState extends State<Forgot_Password_Home> {
             SizedBox(
               height: 32,
             ),
+            Form(
+              key:_formKey,
+              
+              child: Column(
+              children: [
+                Padding(
+              padding: EdgeInsets.only(right: 20),
+            child: 
             TextFormField(
+              controller: email,
               style: TextStyle(
                 fontSize: 16,
                 color: Color(0xff56545D),
@@ -114,14 +137,14 @@ class _Forgot_Password_HomeState extends State<Forgot_Password_Home> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Ce champs est obligatoire";
-                } else {
-                  return null;
-                }
-              },
-            ),
+              validator: (value) => EmailValidator.validate(value!) && !value.isEmpty? null : "Please enter a valid email",
+            )
+            ,),
+
+              ],
+            )),
+            
+            
             SizedBox(
               height: 15,
             ),
@@ -131,8 +154,28 @@ class _Forgot_Password_HomeState extends State<Forgot_Password_Home> {
             Container(
               margin: EdgeInsets.only(right: 20),
               child: ElevatedButton(
-                onPressed: () {
-                  Get.to(() => OTP());
+                onPressed: () async {
+                    var formdata =_formKey.currentState;
+                    if(formdata!.validate()){
+                      
+                      int isValid = await forgot_api.verify_email(email.text, "COMPANY");
+                      if(isValid == 0){
+                         final snackBar = SnackBar(
+                                  content: Text("Please enter a valid email", style: TextStyle(color: Colors.white),),
+                                  backgroundColor: Colors.red,
+                                  );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                      }else{
+                        
+
+                         Get.to(() => OTP(email: email.text,));
+
+                      }
+
+                      
+                    }
+                 
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
