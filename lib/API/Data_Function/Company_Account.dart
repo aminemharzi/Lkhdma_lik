@@ -4,6 +4,8 @@ import 'package:http/http.dart'as http;
 import 'package:lkhdma_lik/API/Constant.dart';
 import 'package:lkhdma_lik/Models/Company_Infos.dart';
 import 'package:lkhdma_lik/Models/Company_Register_Model.dart';
+
+
 class Company_Account_API{
 
   Future login(String email, String password) async{
@@ -86,10 +88,10 @@ class Company_Account_API{
    String activity, String transaction_number,int idCompany) async {
            try{
                   var reponse = await http.post(Uri.parse(COMPANY_ENDPOINT), body:{
-                    "action" : "INSERT_ENTREPRISE",
+                    "action" : "INSERT_COMPANY",
                     "nom" : name,
                     "secteur" : activity,
-                    "ca" : transaction_number,
+                    "CA" : transaction_number,
                     "ville" : city,
                     "taille" : size,   
                     "location": location,              
@@ -98,9 +100,10 @@ class Company_Account_API{
 
 
               });
-              if(reponse.statusCode==200){
+              
+            
                 var data =json.decode(reponse.body);
-                print("data is : ${data.toString()}");
+                print("@@@@@@data is : ${data.toString()}");
                 
                 if(data.toString()== "Error"){
                   return null;
@@ -113,9 +116,7 @@ class Company_Account_API{
                 }
                   
              
-              }else{
-                return null;
-              }
+             
                
              
 
@@ -124,9 +125,17 @@ class Company_Account_API{
             return null;
           
 
-          }catch(e){
+          }
+          // on FormatException catch(e){
+          //   if(e.toString()=="Unexpected character (at character 1)"){
+          //     print("error in PHP");
+          //   }
+
+          // }
+          
+          catch(e){
             if(e.toString()== "type 'String' is not a subtype of type 'Map<String, dynamic>'"){
-              print("Type Exception : $e");
+              print("@@@@Type Exception : $e");
               return null;
               
             }else{

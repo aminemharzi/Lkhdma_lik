@@ -1,21 +1,77 @@
+import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lkhdma_lik/Entreprise/Account/Create_New_Password.dart';
 import 'package:otp_text_field/otp_text_field.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 
 class OTP extends StatefulWidget {
-  OTP({Key? key}) : super(key: key);
+   String email ;
+  OTP({Key? key, required this.email}) : super(key: key);
+ 
+  
 
   @override
-  State<OTP> createState() => _OTPState();
+  State<OTP> createState() => _OTPState(email);
 }
 
 class _OTPState extends State<OTP> {
+  String email;
+  _OTPState(this.email);
+ 
+
+  OtpFieldController otpController = OtpFieldController();
+  var isClicked = false;
+  var otp = TextEditingController();
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sendOtp();
+     
+
+  }
+  
+   EmailAuth emailAuth = new EmailAuth(
+      sessionName: "Sample session",
+    );
+
+
+  /// a void funtion to send the OTP to the user
+  /// Can also be converted into a Boolean function and render accordingly for providers
+  void sendOtp() async {
+    bool result = await emailAuth.sendOtp(
+        recipientMail: email, otpLength: 4);
+    if (result) {
+      print("OTP is sent");
+    }
+  }
+
+   void verify() {
+    var isValidOtp = emailAuth.validateOtp(
+        recipientMail: email,
+        userOtp: otp.value.text);
+        if(isValidOtp){
+           Get.to(() => Create_New_Password(email: email,));
+
+
+        }else{
+           final snackBar = SnackBar(
+                  content: Text("Code is not correct", style: TextStyle(color: Colors.white),),
+                  backgroundColor: Colors.red,
+                  );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          otpController.clear();
+
+
+        }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -78,11 +134,11 @@ class _OTPState extends State<OTP> {
               height: 32,
             ),
             Container(
-              width: 250,
+              padding: EdgeInsets.only(right: 20),
+              width:width,
               child: OTPTextField(
-                  length: 4,
-                  //controller: otpController,
-
+                  length: 6,
+                  controller: otpController,
                   fieldWidth: 50,
                   style: TextStyle(fontSize: 17),
                   textFieldAlignment: MainAxisAlignment.spaceAround,
@@ -93,6 +149,7 @@ class _OTPState extends State<OTP> {
                   },
                   onCompleted: (pin) {
                     print("Completed: " + pin);
+                    otp.text = pin;
                   },
                   otpFieldStyle: OtpFieldStyle(
                     borderColor: Color(0xff35C2C1),
@@ -105,7 +162,8 @@ class _OTPState extends State<OTP> {
               margin: EdgeInsets.only(right: 20),
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(() => Create_New_Password());
+                 
+                  verify();
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -155,7 +213,7 @@ class _OTPState extends State<OTP> {
                       ),
                     ),
                     onTap: () {
-                      // Get.back();
+                      sendOtp();
                     },
                   ),
                 ],
